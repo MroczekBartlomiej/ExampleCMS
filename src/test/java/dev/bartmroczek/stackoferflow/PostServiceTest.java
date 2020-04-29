@@ -1,8 +1,11 @@
 package dev.bartmroczek.stackoferflow;
 
+import dev.bartmroczek.stackoferflow.PostResponse.PostResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 public class PostServiceTest {
@@ -22,5 +25,11 @@ public class PostServiceTest {
         postRequest.commentRequest = commentRequest;
 
         postService.createPost(postRequest);
+    }
+
+    @Test
+    void findAllPost() {
+
+        List<PostResponse> post = postService.getPost();
     }
 }

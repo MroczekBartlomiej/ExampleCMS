@@ -1,16 +1,18 @@
 package dev.bartmroczek.stackoferflow;
 
+import dev.bartmroczek.stackoferflow.PostResponse.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
 
     @Autowired
     private PostRepository postRepository;
-
 
     public Long createPost(PostRequest postRequest) {
 
@@ -27,5 +29,34 @@ public class PostService {
         return postRepository.save(post).getId();
     }
 
+    public List<PostResponse> getPost() {
 
+        return postRepository.findAll().stream()
+                .map(this::mapToPostResponse)
+                .collect(Collectors.toList());
+    }
+
+    private PostResponse mapToPostResponse(Post post) {
+
+        PostResponse postResponse = new PostResponse();
+        postResponse.id = post.getId();
+        postResponse.titile = post.getTitle();
+        postResponse.conntent = post.getContent();
+
+        List<Comment> comments = post.getComments();
+        postResponse.comments = comments.stream()
+                .map(this::mapToCommentResponse)
+                .collect(Collectors.toList());
+
+        return postResponse;
+    }
+
+    private CommentResponse mapToCommentResponse(Comment comment) {
+
+        CommentResponse commentResponse = new CommentResponse();
+        commentResponse.id = comment.getId();
+        commentResponse.content = comment.getContent();
+
+        return commentResponse;
+    }
 }

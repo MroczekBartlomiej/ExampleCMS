@@ -13,7 +13,7 @@ public class Post {
     private String title;
     private String content;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "post_comment",
             joinColumns = {@JoinColumn(name = "comment_id")},
             inverseJoinColumns = {@JoinColumn(name = "post_id")}
