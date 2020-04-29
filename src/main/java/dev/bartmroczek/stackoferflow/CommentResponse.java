@@ -6,5 +6,5 @@ public class CommentResponse {
 
     public Long id;
     public String content;
-    public PostResponse post;
+    public SimpleResponse post;
 }
