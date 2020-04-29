@@ -56,7 +56,7 @@ public class PostService {
         CommentResponse commentResponse = new CommentResponse();
         commentResponse.id = comment.getId();
         commentResponse.content = comment.getContent();
-
+        commentResponse.post = mapToPostResponse(comment.getPost());
         return commentResponse;
     }
 }
